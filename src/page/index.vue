@@ -1,13 +1,16 @@
+
 <template>
   <div id="index">
     <section class="header">
       <div class="headImg">
         <div class="userInfo">
           <p class="pos">
-            <router-link v-if="!userName" tag="span" to="/login">读者登录</router-link>
+            <router-link v-if="!userName" tag="span" to="/login">{{$t('navbar.login')}}</router-link>
             <span class="userName">{{userName}}</span>
-            <span v-if="userName" @click="cancel">退出登录</span>
-            <router-link tag="span" to="/search">返回</router-link>
+            <span v-if="userName" @click="cancel">{{$t('navbar.logOut')}}</span>
+            <router-link tag="span" to="/search">{{$t('navbar.back')}}</router-link>
+            <span @click="handleSetLanguage('zh')">中文</span>
+            <span @click="handleSetLanguage('en')">English</span>
           </p>
         </div>
       </div>
@@ -15,34 +18,34 @@
         <ul class="navCtx">
           <div></div>
           <li>
-            <router-link tag="span" to="/search">首页</router-link>
+            <router-link tag="span" to="/search">{{$t('navbar.dashboard')}}</router-link>
           </li>
           <li>
             <span class="father">
-              书籍检索
+              {{$t('navbar.searchBook')}}
               <div class="son">
-                <router-link tag="span" to="/esaySearch">简单检索</router-link>
-                <router-link tag="span" to="/hardSearch">高级检索</router-link>
+                <router-link tag="span" to="/esaySearch">{{$t('navbar.easySearch')}}</router-link>
+                <router-link tag="span" to="/hardSearch">{{$t('navbar.hardSearch')}}</router-link>
               </div>
             </span>
           </li>
           <li>
             <span class="father">
-              借阅管理
+              {{$t('navbar.borrowMan')}}
               <div class="son">
-                <router-link tag="span" to="/LendingRank">借阅排行</router-link>
-                <router-link tag="span" to="/NewBooksBulletins">新书快递</router-link>
+                <router-link tag="span" to="/LendingRank"></router-link>
+                <router-link tag="span" to="/NewBooksBulletins"></router-link>
               </div>
             </span>
           </li>
           <li>
-            <router-link tag="span" to="/ReaderNavigation">读者中心</router-link>
+            <router-link tag="span" to="/ReaderNavigation">{{$t('navbar.reader')}}</router-link>
           </li>
           <!-- <li>
             <router-link tag="span" to="/login">读者登录</router-link>
           </li>-->
           <li>
-            <router-link tag="span" to="/classify">分类导航</router-link>
+            <router-link tag="span" to="/classify">{{$t('navbar.classy')}}</router-link>
           </li>
         </ul>
       </nav>
@@ -63,6 +66,14 @@ export default {
     return {};
   },
   methods: {
+    handleSetLanguage(lang) {
+      this.$i18n.locale = lang;
+      sessionStorage.setItem("language", lang);
+      this.$message({
+        message: "switch language success",
+        type: "success"
+      });
+    },
     cancel() {
       this.$store.dispatch("logout");
       if (this.$route.meta.permission) {
