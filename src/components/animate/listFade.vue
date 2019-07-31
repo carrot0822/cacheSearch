@@ -21,6 +21,7 @@
 
 <script>
 import { setInterval } from "timers";
+import Velocity from 'velocity-animate'
 export default {
   data() {
     return {
