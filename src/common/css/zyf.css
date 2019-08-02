@@ -1,9 +1,9 @@
 /*读者中心的页面大小*/
     .outerDiv{
-        width: 1200px;
-        margin: 0 auto;
+        /*width: 1200px;
+         margin: 0 auto;
         height: 600px;
-        /*border: 1px solid #8080801a;*/
+        border: 1px solid #8080801a; */
     }
 /*弹性布局横向布局*/
 .flexLayoutRow{

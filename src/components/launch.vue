@@ -3,8 +3,8 @@
     <div class="content">
       <div class="aside-block">
         <div class="asideTitle">
-          <i></i>
-          <p>{{init.title}}</p>
+          <i class="fonts iconfont" :class="init.icon"></i>
+          <span>{{init.title}}</span>
         </div>
 
         <div class="aside-content">
@@ -93,6 +93,10 @@ export default {
         color: #fff;
         font-size: 18px;
         padding-left: 24px;
+        .fonts{
+          font-size: 31px;
+          margin-right: 20px;
+        }
       }
       .aside-content {
         background-color: #e7fffa;

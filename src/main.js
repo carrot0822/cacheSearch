@@ -5,7 +5,7 @@ import '../src/common/css/common.css'
 import '../src/common/scss/index.scss'
 import router from './router'
 import store from '../src/store/store'
-
+import '../src/common/font/iconfont.css'
 import './permission' 
 import '@/request/api/http'
 

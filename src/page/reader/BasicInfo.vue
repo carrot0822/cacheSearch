@@ -1,5 +1,5 @@
 <template>
-    <div id="BasicInfo" class="outerDiv zyfPage ReaderCenter">
+    <div id="BasicInfo" class=" zyfPage ReaderCenter">
         <div class="flexLayoutRow">
             <div class="title flexLayoutRow">
                 <img :src="titleIcon" class="titleImg">

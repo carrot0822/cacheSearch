@@ -12,10 +12,7 @@
           
           
             <router-link tag="li" to="/esaySearch">书籍检索</router-link>
-          
-          <li>
-            <span>借阅管理</span>
-          </li>
+            <router-link tag="li" to="/LendingRank">借阅管理</router-link>
           <router-link tag="li" to="/login">读者登录</router-link>
         </ul>
       </nav>
