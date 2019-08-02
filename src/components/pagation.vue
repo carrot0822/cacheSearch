@@ -92,9 +92,9 @@ export default {
                 this.pageInput =1
             } else {
                 this.pageInput = Math.floor(this.pageInput)
-                if(this.pageInput < 1){
+                if(this.pageInput < 1 || this.pageInput > this.pageMax){
                   this.pageInput = 1
-                }
+                } 
             }
             this.currentPage = this.pageInput
             this.emitBtn()

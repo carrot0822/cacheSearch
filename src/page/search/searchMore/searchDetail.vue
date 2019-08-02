@@ -14,7 +14,7 @@
         <div class="info">
           <p class="stage">
             <span class="distance">作者：</span>
-            {{bookData.name}}
+            {{bookData.author}}
           </p>
           <p class="stage">
             <span class="distance">出版社：</span>
@@ -63,7 +63,9 @@
                   <span>分享</span>
                 </p>
               </div>
-              <div class="select"></div>
+              <div class="select">
+                <sharebook :url="url" :title="title"></sharebook>
+              </div>
             </div>
             <div class="collect" @click="collectBtn">
               <p class="size">
@@ -99,9 +101,9 @@
         <div class="tableBox">
           <el-table header-cell-class-name="tableHead" :data="tableData" style="width: 100%">
             <el-table-column align="center" prop="code" label="条码号"></el-table-column>
-            <el-table-column align="center" prop="name" label="索书号"></el-table-column>
-            <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
-            <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
+            <el-table-column align="center" prop="callNumber" label="索书号"></el-table-column>
+            <el-table-column align="center" prop="place" label="所属分馆"></el-table-column>
+            <el-table-column align="center" prop="locationNam" label="馆藏所在地"></el-table-column>
             <el-table-column align="center" prop="filterLend" label="馆藏状态"></el-table-column>
             <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
             <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
@@ -118,8 +120,10 @@
 </template>
 
 <script>
+const ip = window.url
 import { detailInt, selectInt } from "@/request/api/search";
 import { orderInt, collectInt } from "@/request/api/collect";
+import sharebook from '@/layout/share.vue'
 import { type } from "os";
 
 export default {
@@ -138,8 +142,15 @@ export default {
       shareShow: false, // 控制分享框的显隐
       allTable: [], // 所有数据
       inlib: [], // 在馆
-      outlib: [] // 借出
+      outlib: [], // 借出
+      // 分享的数据
+      title:'',
+      url:"",
+      imgUrl:"",
     };
+  },
+  components:{
+    sharebook
   },
   computed: {
     hasLogin() {
@@ -208,6 +219,8 @@ export default {
       detailInt(data).then(res => {
         console.log("详情", res);
         this.bookData = res.data.row;
+        this.title = res.data.row.name
+        console.log(this.title,'我要标题')
       });
     },
     // 简单查询
@@ -234,6 +247,7 @@ export default {
                 item.filterLend = "损坏";
             }
           }
+          
           this.allTable = res.data.row;
           this.inlib = res.data.row.filter(obj => {
             return obj.lendState == 1;
@@ -292,6 +306,8 @@ export default {
   created() {
     console.log("让我康康", this.hasLogin);
     let id = this.$route.params;
+    this.url = ip  + '#' +this.$route.fullPath
+    console.log(this.$route,'我要路由',this.url)
     this.bookId = id.id;
     let obj = {};
     obj.fkCataBookId = id.id;
@@ -306,6 +322,7 @@ export default {
 
 <style lang="scss" scoped>
 #detail {
+  padding: 0 10px;
   .titleBox {
     .titleCtx {
       min-height: 40px;
@@ -376,7 +393,7 @@ export default {
             position: relative;
             &:hover {
               .select {
-                width: 140px;
+                width: 170px;
                 opacity: 1;
               }
             }
@@ -405,6 +422,11 @@ export default {
               height: 64px;
               z-index: 1;
               right: 56px;
+              
+              box-sizing: border-box;
+              padding: 15px 0px;
+              padding-right: 13px;
+              padding-left: 10px;
               transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
             }
           }
@@ -439,7 +461,7 @@ export default {
   }
   .book-detail {
     padding-top: 20px;
-    min-height: 300px;
+    
     transition: height 3s;
     .touchBox {
       position: relative;

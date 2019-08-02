@@ -1,4 +1,5 @@
 export class share{
+   // url是自己的url
  constructor(title,url,picurl){
     this.Sina = 'http://v.t.sina.com.cn/share/share.php?title='+title+'&url='+url+'&content=utf-8&sourceUrl='+url+'&pic='+picurl
     this.QQZone =  'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary='+title+'&url='+url+'&pics='+picurl
@@ -19,4 +20,20 @@ export class share{
  }
 }
 
+export class shop{
+   constructor(title){
+      this.ding = 'http://search.dangdang.com/?key=' + title
+      this.amazon = 'https://www.amazon.cn/s?k=' + title
+      this.dogDong = `https://search.jd.com/Search?keyword=${title}&enc=utf-8`
+   }
+   shopDing(){
+      window.open(this.ding,'newwindow','height=400,width=400,top=100,left=100')
+   }
+   shopAmazon(){
+      window.open(this.amazon,'newwindow','height=400,width=400,top=100,left=100')
+   }
+   shopJing(){
+      window.open(this.dogDong,'newwindow','height=400,width=400,top=100,left=100')
+   }
+}
  

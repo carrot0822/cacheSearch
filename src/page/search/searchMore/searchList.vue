@@ -21,7 +21,7 @@
           </p>
         </div>
       </div>
-      <div class="rightBox">
+     <!--  <div class="rightBox">
         <p class="rightText">
           <i></i>
           <span>排序方式</span>
@@ -29,23 +29,23 @@
         <div class="selectBox">
           <el-select v-model="sortValue" placeholder="请选择排序方式">
             <el-option
-              v-for="item in sortOptions"
-              :key="item.value"
+              v-for="(item,index) in sortOptions"
+              :key="index"
               :label="item.label"
               :value="item.value"
             ></el-option>
           </el-select>
         </div>
-      </div>
+      </div> -->
     </section>
     <!-- 列表页 -->
     <section class="listPage">
       <div class="aside-left">
-        <launch @son-click="searchPlace" :key="1" :dataArr="placeArr" :init="initArr[0]"></launch>
-        <launch @son-click="searchIndex" :key="2" :dataArr="indexArr" :init="initArr[1]"></launch>
-        <launch @son-click="searchauthor" :key="3" :dataArr="authorArr" :init="initArr[2]"></launch>
-        <launch @son-click="searchpublicTime" :key="4" :dataArr="publicTimeArr" :init="initArr[3]"></launch>
-        <launch @son-click="searchtype" :key="5" :dataArr="typeArr" :init="initArr[4]"></launch>
+        <launch @son-click="searchPlace" :key=10 :dataArr="placeArr" :init="initArr[0]"></launch>
+        <launch @son-click="searchIndex" :key=12 :dataArr="indexArr" :init="initArr[1]"></launch>
+        <launch @son-click="searchauthor" :key=13 :dataArr="authorArr" :init="initArr[2]"></launch>
+        <launch @son-click="searchpublicTime" :key=14 :dataArr="publicTimeArr" :init="initArr[3]"></launch>
+        <launch @son-click="searchtype" :key=15 :dataArr="typeArr" :init="initArr[4]"></launch>
       </div>
 
       <div class="aside-right">
@@ -103,23 +103,23 @@
 const init = [
   {
     title: "所属馆",
-    icon: ""
+    icon: "icon-tu"
   },
   {
     title: "文献类型",
-    icon: ""
+    icon: "icon-wenxianku"
   },
   {
     title: "著作者",
-    icon: ""
+    icon: "icon-zuozhe"
   },
   {
     title: "出版日期",
-    icon: ""
+    icon: "icon-riqi1"
   },
   {
     title: "分类",
-    icon: ""
+    icon: "icon-fenlei_"
   }
 ];
 import SearchInput from "@/components/SearchInput";
@@ -135,6 +135,18 @@ export default {
       sortValue: "", // 数据排序
       tableData: [], // 渲染数据
       sortOptions: [
+        {
+          label: "匹配度升序",
+          value: "1"
+        },
+        {
+          label: "匹配度升序",
+          value: "1"
+        },
+        {
+          label: "匹配度升序",
+          value: "1"
+        },
         {
           label: "匹配度升序",
           value: "1"
@@ -167,6 +179,7 @@ export default {
     searchPlace(val) {
       let obj = {};
       obj.libData = val;
+      obj.currentPage = 1
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -175,6 +188,7 @@ export default {
     searchIndex(val) {
       let obj = {};
       obj.documentTypeData = val;
+      obj.currentPage = 1
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -183,6 +197,7 @@ export default {
     searchauthor() {
       let obj = {};
       obj.authorData = val;
+      obj.currentPage = 1
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -191,6 +206,7 @@ export default {
     searchpublicTime() {
       let obj = {};
       obj.publicationTimeData = val;
+      obj.currentPage = 1
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -199,6 +215,7 @@ export default {
     searchtype() {
       let obj = {};
       obj.typeData = val;
+      obj.currentPage = 1
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);

@@ -10,7 +10,11 @@
             <span>{{data.name}}</span>
           </p>
           <p class="info">{{data.author}} {{data.fkPressName}}，1990.10 {{data.callNumber}}</p>
-          <p class="buy"></p>
+          <p class="buy">
+            <i @click="dingdang" class="buyFont iconfont icon-dangdang"></i>
+            <i @click="dong" class="buyFont iconfont icon-jingdong"></i>
+            <i @click="Amazon" class="buyFont iconfont icon-amazon"></i>
+          </p>
           <div class="touchBox">
             <span @click="toggleShow(data.fkCataBookId)" class="clickBox">馆藏信息</span>
             <span class="tranle"></span>
@@ -58,6 +62,7 @@
 
 <script>
 import { selectInt } from "@/request/api/search";
+import {shop} from '@/layout/share.js'
 export default {
   props: {
     data: {
@@ -84,7 +89,8 @@ export default {
       isRequest: false,
       allTable: [], // 所有数据
       inlib: [], // 在馆
-      outlib: [] // 借出
+      outlib: [], // 借出
+      shopObj:null
     };
   },
   computed: {
@@ -152,12 +158,24 @@ export default {
         this.isRequest = true;
       });
     },
-    
+    dingdang() {
+      this.shopObj.shopDing();
+    },
+    Amazon() {
+      this.shopObj.shopAmazon();
+    },
+    dong() {
+      this.shopObj.shopJing();
+    }
+  },
+  mounted(){
+    this.shopObj = new shop(this.data.name)
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import '@/common/scss/variables.scss';
 #bookBlock {
   .book-block {
     position: relative;
@@ -199,8 +217,18 @@ export default {
         }
         .buy {
           margin-bottom: 13px;
-          height: 18px;
-          background-color: #c69;
+          
+          
+          .buyFont{
+            color: #444;
+            font-size: 32px;
+            margin-right: 20px;
+            display: inline-block;
+            cursor: pointer;
+            &:hover{
+              color: $green;
+            }
+          }
         }
         .touchBox {
           position: relative;
@@ -235,7 +263,7 @@ export default {
       }
       .number {
         position: absolute;
-        right: 0;
+        right: 30px;
       }
     }
     .bookself {

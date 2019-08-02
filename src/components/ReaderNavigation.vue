@@ -9,7 +9,7 @@
                     >
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i class="userIcon iconfont icon-yonghuxinxi"></i>
                         <span>用户信息</span>
                     </template>
                     <el-menu-item-group>
@@ -21,7 +21,7 @@
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i class="userIcon iconfont icon-borrow"></i>
                         <span>我的借阅</span>
                     </template>
                     <el-menu-item-group>
@@ -33,7 +33,7 @@
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i class="userIcon iconfont icon-lease-resv-2room"></i>
                         <span>我的预约</span>
                     </template>
                     <el-menu-item-group>
@@ -43,7 +43,7 @@
                 </el-submenu>
                 <el-submenu index="5">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i class="userIcon iconfont icon-woyaozijian"></i>
                         <span>我的荐购</span>
                     </template>
                     <el-menu-item-group>
@@ -55,7 +55,7 @@
                 </el-submenu>
                 <el-submenu index="4">
                     <template slot="title">
-                        <i class="el-icon-location"></i>
+                        <i class="userIcon iconfont icon-ax-caiwu"></i>
                         <span>财经管理</span>
                     </template>
                     <el-menu-item-group>
@@ -90,5 +90,9 @@
 </script>
 
 <style scoped>
-
+.userIcon{
+    font-size: 29px;
+    color: #ffffff;
+    margin-right: 22px;
+}
 </style>

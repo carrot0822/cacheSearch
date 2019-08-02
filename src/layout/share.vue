@@ -1,40 +1,81 @@
 <template>
-    <div id="shareBtn">
-        <span @click="QQzone"><i></i></span>
-    </div>
+  <div id="shareBtn">
+    <i @click="QQ" class="shareicon iconfont icon-QQ"></i>
+    <i @click="Douban" class="shareicon iconfont icon-douban"></i>
+    <i @click="Sina" class="shareicon iconfont icon-weibo"></i>
+    <i @click="QQzone" class="shareicon iconfont icon-QQkongjian"></i>
+  </div>
 </template>
 
 <script>
-import {share} from './share'
+const url = window.url
+import { share, shop } from "./share";
 export default {
-    data(){
-        return{
-           obj:null 
-        }
+  props: {
+      title:{
+          type:String,
+          default:'无标题'
+      },
+      url:{
+          type:String,
+          default:url,
+      },
+      imgUrl:{
+          type:String,
+          default:''
+      }
+  },
+  data() {
+    return {
+      shareObj: null,
+      shopObj:null
+    };
+  },
+  methods: {
+    QQzone() {
+      this.shareObj.shareQQZone();
     },
-    methods:{
-        QQzone(){
-            this.obj.shareQQZone()
-        },
-        Sina(){
-            this.obj.shareSina()
-        },
-        Douban(){
-            this.obj.shareDouban()
-        },
-        QQ(){
-            this.obj.shareQQ()
-        }
+    Sina() {
+      this.shareObj.shareSina();
     },
-    mounted(){
-        this.obj = new share('标题','www.baidu.com','')
-        
+    Douban() {
+      this.shareObj.shareDouban();
+    },
+    QQ() {
+      this.shareObj.shareQQ();
+    },
+    dingdang() {
+      this.pbj.shopDing();
+    },
+    Amazon() {
+      this.pbj.shopAmazon();
+    },
+    dong() {
+      this.pbj.shopJing();
     }
-}
+  },
+  mounted() {
+    this.shareObj = new share(this.title, this.url, this.imgUrl);
+    this.shopObj = new shop(this.title);
+    console.log(this.shareObj)
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-
+@import "@/common/scss/variables.scss";
+#shareBtn {
+    
+  .shareicon {
+    font-size: 30px;
+    color: #444;
+    cursor: pointer;
+    padding: 0 3px;
+  }
+  .shareicon:hover {
+    color: $green;
+  }
+}
 </style>
 
 

@@ -49,7 +49,14 @@
     </section>
     <section class="content">
       <div class="centerBox">
-        <router-view></router-view>
+        <div class="scrollBox">
+          <el-scrollbar style="height:100%">
+            <div style="width:100%">
+              <router-view></router-view>
+            </div>
+            
+          </el-scrollbar>
+        </div>
       </div>
     </section>
     <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
@@ -98,7 +105,7 @@ export default {
       position: relative;
       .pos {
         position: absolute;
-        bottom: 0;
+        bottom: 20px;
         right: 0;
         span {
           display: inline-block;
@@ -166,14 +173,18 @@ export default {
   .content {
     .centerBox {
       width: 1200px;
+      
       margin: 0 auto;
-      padding-top: 50px;
-      margin-bottom: 54px;
+      padding-top: 40px;
+      margin-bottom: 50px;
+      .scrollBox{
+        height: calc(100vh - 380px);
+      }
     }
   }
 
   .copyright {
-    padding-bottom: 48px;
+    padding-bottom: 50px;
     text-align: center;
     color: #ffffff;
     font-size: 13px;
@@ -182,4 +193,12 @@ export default {
 }
 </style>
 
+<style>
+.el-scrollbar__wrap {
+    overflow-x: hidden!important;
+}
+.is-horizontal .el-scrollbar__thumb{
+  width: 0!important;
+}
+</style>
 

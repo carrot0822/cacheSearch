@@ -2,9 +2,8 @@
   <div id="classify">
     <div class="classifyBox">
       <aside class="leftBox">
-        
         <div class="title">
-          <i class="icon">图标</i>
+          <i class="icon iconfont icon-fenleidaohang"></i>
           <span class="text">分类导航</span>
         </div>
         <div class="selectBox">
@@ -43,12 +42,14 @@
         </div>
         <div class="searchEnd">
           <el-scrollbar style="height:100%">
-            <div class="loadingBox"><loading :loading="loading"></loading></div>
-            
+            <div class="loadingBox">
+              <loading :loading="loading"></loading>
+            </div>
+
             <div class="treeBox" v-if="treeArr.length">
               <div class="tree-block" v-for="(item,index) of treeArr" :key="index">
                 <div class="fatherBox">
-                  <i class="icon" @click="openBtn(index)">图标</i>
+                  <i class="icon iconfont icon-kinds" @click="openBtn(index)"></i>
                   <div @click="searchBtn(item)" class="flex">
                     <span class="name">{{item.letter}}-{{item.title}}</span>
                     <span class="red">({{item.number}})</span>
@@ -69,16 +70,34 @@
       </aside>
       <!-- 右边的盒子 -->
       <section class="rightBox">
-        <el-scrollbar style="height:100%">
-          <div class="pagation"></div>
-          <div v-if="collectionList.length" class="detailBox">
+        <!-- <el-scrollbar style="height:100%">
+          
+        </el-scrollbar>-->
+        <div v-if="!collectionList.length" >
+          暂无数据 中图分类啊卡卡
+        </div>
+        <div class="content-class" v-if="collectionList.length">
+          <div class="pagation">
+            <pagation
+              :allData="total"
+              :pageSize="pageSize"
+              :current="currentPage"
+              @pageChange="pageChangeBtn"
+            ></pagation>
+          </div>
+          <div  class="detailBox">
             <animation>
-            <div v-bind:data-index="index" class="protect" v-for="(item,index) of collectionList" :key="index">
-              <book-block :data="item"></book-block>
-            </div>
+              <div
+                v-bind:data-index="index"
+                class="protect"
+                v-for="(item,index) of collectionList"
+                :key="index"
+              >
+                <book-block :data="item"></book-block>
+              </div>
             </animation>
           </div>
-        </el-scrollbar>
+        </div>
       </section>
     </div>
   </div>
@@ -112,8 +131,9 @@ const typeArr = [
 import { searchInt } from "@/request/api/search";
 import { getBigLetter } from "@/common/js/util";
 import BookBlock from "@/components/bookBlock";
-import loading from "@/layout/loading"
-import animation from "@/components/animate/listFade"; 
+import loading from "@/layout/loading";
+import animation from "@/components/animate/listFade";
+import pagation from "@/components/pagation";
 const classArr = [""];
 export default {
   data() {
@@ -128,16 +148,33 @@ export default {
       totalNumber: 0, // 总本书缓存变量
       launch: -1,
       isOpen: false,
-      loading:true,
-      collectionList: [] //
+      loading: true,
+      collectionList: [], //
+      // 搜索的条件
+      searchRea: {
+        pageSize:10,
+        currentPage:1
+      },
+      // 分页数据
+      total:0,
+      pageSize:10,
+      currentPage:1
     };
   },
-  components:{
+  components: {
     BookBlock,
     loading,
-    animation
+    animation,
+    pagation
   },
   methods: {
+    pageChangeBtn(val){
+      let obj = {};
+      obj.currentPage = 1;
+      this.searchRea = Object.assign(this.searchRea,obj)
+      this._allSearch(this.searchRea);
+      console.log(val)
+    },
     /*------ opation ------*/
     openBtn(index) {
       if (this.launch == index) {
@@ -149,8 +186,10 @@ export default {
     searchBtn(val) {
       let obj = {};
       obj.typeCode = val.code;
+      obj.currentPage = 1;
+      this.searchRea = Object.assign(this.searchRea,obj)
       console.log("传递的值", obj);
-      this._allSearch(obj);
+      this._allSearch(this.searchRea);
     },
     /*------ api ------*/
     // 中图分类法
@@ -227,17 +266,22 @@ export default {
     .leftBox {
       width: 260px;
       border: solid 1px $green;
+      position: relative;
       margin-right: 20px;
       .title {
         background-color: $green;
         height: 66px;
-        text-align: center;
+        text-align: left;
+        padding-left: 30px;
         line-height: 66px;
         color: #ffffff;
         .text {
+          margin-left: 30px;
           font-size: 18px;
         }
         .icon {
+          font-size: 18px;
+          color: #ffffff;
         }
       }
       .selectBox {
@@ -257,14 +301,14 @@ export default {
       .searchEnd {
         height: 500px;
         position: relative;
-        .loadingBox{
-            position: absolute;
-            top: 200px;
-            left: 80px;
-          }
+        .loadingBox {
+          position: absolute;
+          top: 200px;
+          left: 80px;
+        }
         .treeBox {
           padding-top: 12px;
-          
+
           .tree-block {
             margin-bottom: 12px;
             .fatherBox {
@@ -272,6 +316,10 @@ export default {
               margin-bottom: 12px;
               display: flex;
               flex-direction: row;
+              .icon {
+                font-size: 18px;
+                color: $green;
+              }
               .flex {
                 cursor: pointer;
                 .name {
@@ -309,9 +357,8 @@ export default {
     }
     /* 右侧盒子 */
     .rightBox {
-      height: 733px;
-      border-bottom: 1px solid $green;
       
+      border-bottom: 1px solid $green;
     }
   }
 }

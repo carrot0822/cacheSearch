@@ -25,7 +25,7 @@
         <el-table
                 :data="tableData"
                 style="width: 100%"
-                height="250">
+                >
             <el-table-column
                     prop="name"
                     :show-overflow-tooltip="true"
