@@ -74,6 +74,7 @@ export default {
           this.$message.success("登录成功");
           this.$router.push("/BasicInfo");
         } else {
+            this.$message.error(res.data.msg);
           console.log(res.data.msg);
         }
       });

@@ -125,6 +125,13 @@
                 console.log('荐购的书籍数据',this.orderData)
                 addOrderFun(this.orderData).then((res)=>{
                     console.log('书籍荐购返回的数据',res)
+                    if(res.data.state==true){
+                        this.$message.success(res.data.msg)
+                        this.dialogVisible=false
+                        this.searchApi()
+                    }else{
+                        this.$message.error(res.data.msg)
+                    }
                 })
             },
             //荐购取消按钮

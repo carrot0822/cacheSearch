@@ -117,6 +117,8 @@
                             if(res.data.state==true){
                                 this.popContent=res.data.msg;
                                 this.dialogVisible=true
+                            }else{
+                                this.$message.error(res.data.msg)
                             }
                         })
                     } else {

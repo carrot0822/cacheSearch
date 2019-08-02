@@ -106,6 +106,8 @@
                     if(res.data.state==true){
                         this.tableData=res.data.row;
                         this.Total=res.data.total
+                    }else{
+                        this.$message.error(res.data.msg)
                     }
                 })
             },
