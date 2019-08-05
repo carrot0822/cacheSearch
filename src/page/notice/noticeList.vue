@@ -11,7 +11,11 @@
         <div class="contentBox">
           <div class="infoBox">
             <div class="title">
-              shijian
+              <span class="name">管理员</span>
+              <span class="time"></span>
+            </div>
+            <div class="content">
+              这里才是标题
             </div>
           </div>
         </div>

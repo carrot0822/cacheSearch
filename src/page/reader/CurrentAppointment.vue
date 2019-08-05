@@ -103,6 +103,7 @@
                     if(res.data.state==true){
                         this.popContent=res.data.msg
                         this.dialogVisible=true
+                        this.searchApi()
                     }else{
                         this.popContent=res.data.msg
                         this.dialogVisible=true
@@ -121,6 +122,8 @@
                     if(res.data.state==true){
                         this.tableData=res.data.row
                         this.Total=res.data.total
+                    }else{
+                        this.$message.error(res.data.msg)
                     }
                 })
             },

@@ -56,7 +56,7 @@
             initializeApi(){
                 let btnName=""
                 readerInfoFun().then((res)=>{
-                    console.log('初始化的读者基本信息',res)
+                    console.log('初始化的读者基本信息',res);
                     if(res.data.state==true){
                         this.readerInfo=res.data.row;
                         if(res.data.row.cardState==0){

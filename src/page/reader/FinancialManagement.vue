@@ -49,9 +49,9 @@
                 </el-table-column>
                 <el-table-column
                         label="金额"
-                        prop="money">
+                        prop="moneyFloat">
                     <template slot-scope="scope">
-                        <span>{{scope.row.money}}元</span>
+                        <span>{{scope.row.moneyFloat}}元</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -88,6 +88,8 @@
                     if(res.data.state==true){
                         this.tableData=res.data.row;
                         this.Total=res.data.total
+                    }else{
+                        this.$message.error(res.data.msg)
                     }
                 })
             },
