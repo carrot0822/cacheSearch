@@ -4,14 +4,14 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="85px">
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
-          <el-form-item label="用户名：" prop="name">
-            <el-input v-model="form.name" clearable></el-input>
+          <el-form-item label="用户名：" prop="name" placeholder="请输入电话/身份证/卡号/邮箱">
+            <el-input v-model="form.name" placeholder="请输入密码" clearable></el-input>
           </el-form-item>
         </div>
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
           <el-form-item label="密　码：" prop="password">
-            <el-input type="password" v-model="form.password" clearable></el-input>
+            <el-input @keyup.enter.native="landingBtn" type="password" v-model="form.password" clearable></el-input>
           </el-form-item>
         </div>
         <!--<div class="flexLayoutRow">
@@ -74,6 +74,7 @@ export default {
           this.$message.success("登录成功");
           this.$router.push("/BasicInfo");
         } else {
+          this.$message.error(res.data.msg)
           console.log(res.data.msg);
         }
       });
@@ -90,7 +91,7 @@ export default {
 #login {
   margin: 0px auto;
   width: 815px;
-  height: 600px;
+  
 }
 .loginBack {
   background-image: url("../../common/img/login/login.png");

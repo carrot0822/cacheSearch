@@ -194,10 +194,10 @@ export default {
 </style>
 
 <style>
-.el-scrollbar__wrap {
-    overflow-x: hidden!important;
+.scrollBox .el-scrollbar__wrap {
+    overflow-x: hidden;
 }
-.is-horizontal .el-scrollbar__thumb{
+.scrollBox .is-horizontal .el-scrollbar__thumb{
   width: 0!important;
 }
 </style>

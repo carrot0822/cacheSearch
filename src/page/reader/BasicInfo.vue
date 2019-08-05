@@ -9,7 +9,9 @@
         </div>
 
         <div class="flexLayoutRow">
-            <div class="headIcon"></div>
+            <div class="headIcon">
+                <img  src="../../common/img/header.png">
+            </div>
             <div>
                 <p>读者卡号： <span>{{readerInfo.cardNumber}}</span></p>
                 <p>开户馆： <span>{{readerInfo.libraryName}}</span> </p>
@@ -77,6 +79,11 @@
         height: 180px;
         background-color: #DADADA;
         margin-right: 70px;
+        text-align: center;
+    }
+    .headIcon img{
+        width: 100%;
+        height: 100%;
     }
     p{
         color: #2a2a2a;

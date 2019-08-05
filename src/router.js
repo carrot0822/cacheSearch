@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from 'page/index.vue'
 import Search from 'page/search.vue'
-
+import Not from './page/error.vue'
 
 Vue.use(Router)
 
@@ -186,15 +186,24 @@ export default new Router({
                     path: '/login',
                     component: () => import('page/login/login.vue')
                 },
+                // 文章部分
+                 {
+                    path:'/articleList',
+                    component:() => import('page/notice/noticeList.vue')
+                },
+                {
+                    path:'/article/:id',
+                    component:() => import ('page/notice/article.vue')
+                } 
             ]
         },
         {
             path: '/test',
             component: () => import('../src/layout/share.vue')
         },
-
-
-
-
+        {
+            path:'*',
+            component:Not
+          }
     ]
 })

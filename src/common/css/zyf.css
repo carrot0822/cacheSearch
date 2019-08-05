@@ -188,6 +188,7 @@
     font-size: 15px;
 }
 /*我的收藏的表格内按钮样式设置*/
+
 #MyCollection .tableStyle .el-button--text{
     color: #FF3B31;
     font-size: 15px;
@@ -238,11 +239,11 @@
     width: 100%;
 }
 #MyCollection .el-input__inner{
-    width: 100%;
+    width: 180px;
 }
 #MyCollection .el-form-item{
     margin-bottom: 0px;
-    width: 300px;
+    
 }
 /*当前借阅查询的页面样式设置*/
 #CurrentAppointmenr{
@@ -271,7 +272,7 @@
     width:100%
 }
 #OrderPage .el-input__inner{
-    width: 220px;
+    width: 180px;
 }
 #OrderPage .el-form-item{
     margin-bottom: 0px;

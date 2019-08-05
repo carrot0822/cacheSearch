@@ -16,7 +16,7 @@ export const collectInt ={
     collect:collect,
     delect:delectCo
 }
-
+// 预约查询
 export function orderInt(obj) {
     return axios.post(orderUrl.order,obj
     ).then((res) => {

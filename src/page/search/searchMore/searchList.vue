@@ -21,7 +21,7 @@
           </p>
         </div>
       </div>
-     <!--  <div class="rightBox">
+      <!--  <div class="rightBox">
         <p class="rightText">
           <i></i>
           <span>排序方式</span>
@@ -36,22 +36,22 @@
             ></el-option>
           </el-select>
         </div>
-      </div> -->
+      </div>-->
     </section>
     <!-- 列表页 -->
     <section class="listPage">
       <div class="aside-left">
-        <launch @son-click="searchPlace" :key=10 :dataArr="placeArr" :init="initArr[0]"></launch>
-        <launch @son-click="searchIndex" :key=12 :dataArr="indexArr" :init="initArr[1]"></launch>
-        <launch @son-click="searchauthor" :key=13 :dataArr="authorArr" :init="initArr[2]"></launch>
-        <launch @son-click="searchpublicTime" :key=14 :dataArr="publicTimeArr" :init="initArr[3]"></launch>
-        <launch @son-click="searchtype" :key=15 :dataArr="typeArr" :init="initArr[4]"></launch>
+        <launch @son-click="searchPlace" :key="10" :dataArr="placeArr" :init="initArr[0]"></launch>
+        <launch @son-click="searchIndex" :key="12" :dataArr="indexArr" :init="initArr[1]"></launch>
+        <launch @son-click="searchauthor" :key="13" :dataArr="authorArr" :init="initArr[2]"></launch>
+        <launch @son-click="searchpublicTime" :key="14" :dataArr="publicTimeArr" :init="initArr[3]"></launch>
+        <launch @son-click="searchtype" :key="15" :dataArr="typeArr" :init="initArr[4]"></launch>
       </div>
 
       <div class="aside-right">
         <!--- 暂无数据 --->
         <div class="no-data" v-if="!collectionList.length">
-         <img src="../../../common/img/no-data.jpg">
+          <img src="../../../common/img/no-data.jpg" />
         </div>
         <!-- 数据展示 -->
         <div v-if="collectionList.length" class="rightBox">
@@ -84,14 +84,17 @@
       <div class="notice">
         <div class="noticeBr top"></div>
         <div class="content">
-          <p class="title">最新公告</p>
-          <p class="text">
-            <span class="circle"></span>giaogao
+          <p class="title">
+            <span class="distance">最新公告</span>
+            <router-link tag="span" to="/articleList" class="more">更多公告</router-link>
           </p>
-          <p class="text">
-            <span class="circle"></span>giaogao
-            版权所有 copyright © www.kuiniu.com 智慧图
-          </p>
+          <p v-if="!articleArr.length">暂无公告</p>
+          <div v-if="articleArr.length" class="blockBox">
+            <p @click="toArticle(item.id)" v-for="(item,index) of articleArr" :key="index"  class="text">
+              <span class="circle"></span>
+              {{item.title}}
+            </p>
+          </div>
         </div>
         <div class="noticeBr bottom"></div>
       </div>
@@ -128,6 +131,7 @@ import launch from "@/components/launch";
 import animation from "@/components/animate/listFade";
 import pagation from "@/components/pagation";
 import { searchInt } from "@/request/api/search";
+import { articleInt } from "@/request/api/article";
 export default {
   data() {
     return {
@@ -152,8 +156,10 @@ export default {
           value: "1"
         }
       ],
+      // 公告数组
+      articleArr: [],
       // no-data数据
-      noData:'',
+      noData: "",
       // 组件传递数据 馆藏列表
       collectionList: [],
       placeArr: [], // 馆藏地
@@ -170,6 +176,11 @@ export default {
     };
   },
   methods: {
+    toArticle(id){
+      this.$router.push({path:`/article/${id}`})
+      console.log('传递的ID',id)
+    },
+    /*------ API ------*/
     // 普通检索
     _searchto(val) {
       this.$router.push({ path: "searchList", query: val });
@@ -179,7 +190,7 @@ export default {
     searchPlace(val) {
       let obj = {};
       obj.libData = val;
-      obj.currentPage = 1
+      obj.currentPage = 1;
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -188,7 +199,7 @@ export default {
     searchIndex(val) {
       let obj = {};
       obj.documentTypeData = val;
-      obj.currentPage = 1
+      obj.currentPage = 1;
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -197,7 +208,7 @@ export default {
     searchauthor() {
       let obj = {};
       obj.authorData = val;
-      obj.currentPage = 1
+      obj.currentPage = 1;
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -206,7 +217,7 @@ export default {
     searchpublicTime() {
       let obj = {};
       obj.publicationTimeData = val;
-      obj.currentPage = 1
+      obj.currentPage = 1;
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -215,7 +226,7 @@ export default {
     searchtype() {
       let obj = {};
       obj.typeData = val;
-      obj.currentPage = 1
+      obj.currentPage = 1;
       this.condition = Object.assign(this.condition, obj);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
@@ -233,6 +244,16 @@ export default {
         this.typeArr = data.typeNum;
         this.total = res.data.total;
         console.log(res);
+      });
+    },
+    // 公告搜索
+    _noticeSe() {
+      articleInt.apex().then(res => {
+        if (res.data.state) {
+          this.articleArr = res.data.row;
+        } else {
+        }
+        console.log("公告数据", res);
       });
     },
     // 匹配度排序
@@ -254,19 +275,21 @@ export default {
     pagation
   },
   created() {
+    // 传值数据格式转化
     let container = this.$route.query;
     this.pageSize = Number(container.pageSize);
     this.currentPage = Number(container.currentPage);
     this.condition = container;
     console.log("起始数据", this.condition);
     this._allSearch(this.condition);
+    this._noticeSe();
     this.initArr = init;
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/common/scss/variables.scss';
+@import "@/common/scss/variables.scss";
 #searchList {
   .searchBox {
     width: 1200px;
@@ -336,7 +359,7 @@ export default {
       min-height: 143px;
       width: 75%;
       .no-data {
-        img{
+        img {
           padding-left: 100px;
           object-fit: cover;
           width: 800px;
@@ -356,7 +379,7 @@ export default {
       }
     }
   }
-    .noticeBox {
+  .noticeBox {
     position: fixed;
     top: 35%;
     right: 20px;
@@ -386,9 +409,18 @@ export default {
         border-image: repeating-linear-gradient(45deg, #09bd99, #38df93 30px) 60;
         .title {
           font-size: 14px;
-          color: #ff2424;
-          padding-left: 14px;
+          display: flex;
+          justify-content: space-between;
+          padding:0 14px;
+          text-align: justify;
           margin-bottom: 10px;
+          .distance{
+            color: #ff2424;
+          }
+          .more{
+            cursor: pointer;
+            color: $green;
+          }
         }
         .text {
           padding: 0 18px;

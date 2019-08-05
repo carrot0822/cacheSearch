@@ -268,6 +268,7 @@ export default {
       border: solid 1px $green;
       position: relative;
       margin-right: 20px;
+      height: 734px;
       .title {
         background-color: $green;
         height: 66px;

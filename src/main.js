@@ -8,7 +8,9 @@ import store from '../src/store/store'
 import '../src/common/font/iconfont.css'
 import './permission' 
 import '@/request/api/http'
-
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
 
 //css
 import ElementUI from 'element-ui'
