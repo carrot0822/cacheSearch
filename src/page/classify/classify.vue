@@ -73,7 +73,7 @@
         <!-- <el-scrollbar style="height:100%">
           
         </el-scrollbar>-->
-        <div v-if="!collectionList.length" >
+        <div style="width:920px;" v-if="!collectionList.length" >
           暂无数据 中图分类啊卡卡
         </div>
         <div class="content-class" v-if="collectionList.length">

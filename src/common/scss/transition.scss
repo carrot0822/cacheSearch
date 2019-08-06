@@ -1,18 +1,18 @@
 /*淡入淡出*/
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.28s;
+  transition: opacity .3s;
 }
 
 .fade-enter,
-.fade-leave-active {
+.fade-leave-to {
   opacity: 0;
 }
 
 /*带位移的渐入渐出*/
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all .5s;
+  transition: all .4s;
 }
 
 .fade-transform-enter {
@@ -31,7 +31,7 @@
   transition: all 0.28s;
 }
 .push-enter,
-.push-leave-active {
+.push-leave-to {
   transform: translate3d(0, 30px, 0);
   opacity: 0;
 }

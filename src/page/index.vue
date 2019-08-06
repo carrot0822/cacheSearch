@@ -44,6 +44,9 @@
           <li>
             <router-link tag="span" to="/classify">分类导航</router-link>
           </li>
+          <li>
+            <router-link tag="span" to="/articleList">馆内公告</router-link>
+          </li>
         </ul>
       </nav>
     </section>
@@ -51,11 +54,11 @@
       <div class="centerBox">
         <div class="scrollBox">
           <el-scrollbar style="height:100%">
-            <div style="width:100%">
+            <transition mode="out-in" name="fade">
               <router-view></router-view>
-            </div>
-            
+            </transition>
           </el-scrollbar>
+          
         </div>
       </div>
     </section>
@@ -95,9 +98,19 @@ export default {
 
 <style lang="scss" scoped>
 @import "../common/scss/variables.scss";
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 #index {
   position: relative;
   .header {
+    min-width: 1200px;
     .userInfo {
       width: 1000px;
       margin: 0 auto;
@@ -173,12 +186,13 @@ export default {
   .content {
     .centerBox {
       width: 1200px;
-      
+
       margin: 0 auto;
       padding-top: 40px;
       margin-bottom: 50px;
-      .scrollBox{
+      .scrollBox {
         height: calc(100vh - 380px);
+        
       }
     }
   }
@@ -195,10 +209,10 @@ export default {
 
 <style>
 .scrollBox .el-scrollbar__wrap {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
-.scrollBox .is-horizontal .el-scrollbar__thumb{
-  width: 0!important;
+.scrollBox .is-horizontal .el-scrollbar__thumb {
+  width: 0 !important;
 }
 </style>
 

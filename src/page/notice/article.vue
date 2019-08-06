@@ -108,7 +108,7 @@ export default {
   cursor: pointer;
 }
 .backtext:hover{
-  color: aqua;
+  color: #30d5b4;
 }
 .title{
   margin-bottom: 20px;
@@ -122,6 +122,10 @@ export default {
   text-align: center;
   font-size: 14px;
   color: #666;
+}
+.author{
+  margin-right: 10px;
+  display: inline-block;
 }
 .fileBox{
   width: 90%;

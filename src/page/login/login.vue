@@ -4,14 +4,14 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="85px">
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
-          <el-form-item label="用户名：" prop="name" placeholder="请输入电话/身份证/卡号/邮箱">
-            <el-input v-model="form.name" placeholder="请输入密码" clearable></el-input>
+          <el-form-item label="用户名：" prop="name" >
+            <el-input v-model="form.name" placeholder="请输入电话/身份证/卡号/邮箱"  clearable></el-input>
           </el-form-item>
         </div>
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
           <el-form-item label="密　码：" prop="password">
-            <el-input @keyup.enter.native="landingBtn" type="password" v-model="form.password" clearable></el-input>
+            <el-input placeholder="请输入密码" @keyup.enter.native="landingBtn" type="password" v-model="form.password" clearable></el-input>
           </el-form-item>
         </div>
         <!--<div class="flexLayoutRow">

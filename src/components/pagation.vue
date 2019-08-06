@@ -20,7 +20,7 @@
       </div>
       <div class="jump">
         <input v-model.number="pageInput" class="inputBox" type="text" />
-        <span>当前第{{currentPage}}页</span>
+        <span style="margin-right:10px;">当前第{{currentPage}}页</span>
          <span>共{{pageMax}}页</span>
         <button @click="jumpBtn">跳转</button>
       </div>
@@ -148,7 +148,7 @@ export default {
       -moz-user-select: none;
       font-size: 14px;
       &:hover span{
-        color: aqua;
+        color: $highGreen;
       }
     }
   }

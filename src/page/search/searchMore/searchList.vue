@@ -90,7 +90,12 @@
           </p>
           <p v-if="!articleArr.length">暂无公告</p>
           <div v-if="articleArr.length" class="blockBox">
-            <p @click="toArticle(item.id)" v-for="(item,index) of articleArr" :key="index"  class="text">
+            <p
+              @click="toArticle(item.id)"
+              v-for="(item,index) of articleArr"
+              :key="index"
+              class="text"
+            >
               <span class="circle"></span>
               {{item.title}}
             </p>
@@ -176,9 +181,9 @@ export default {
     };
   },
   methods: {
-    toArticle(id){
-      this.$router.push({path:`/article/${id}`})
-      console.log('传递的ID',id)
+    toArticle(id) {
+      this.$router.push({ path: `/article/${id}` });
+      console.log("传递的ID", id);
     },
     /*------ API ------*/
     // 普通检索
@@ -411,35 +416,47 @@ export default {
           font-size: 14px;
           display: flex;
           justify-content: space-between;
-          padding:0 14px;
+          padding: 0 14px;
           text-align: justify;
           margin-bottom: 10px;
-          .distance{
+          .distance {
             color: #ff2424;
           }
-          .more{
+          .more {
             cursor: pointer;
             color: $green;
           }
         }
-        .text {
-          padding: 0 18px;
-          line-height: 27px;
-          width: 100%;
-          box-sizing: border-box;
-          cursor: pointer;
-          word-break: break-all;
-          .circle {
-            width: 6px;
-            height: 6px;
-            background-color: $green;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 4px;
+        .blockBox {
+          .text {
+            padding: 0 18px;
+            line-height: 27px;
+            width: 100%;
+            box-sizing: border-box;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &:hover{
+              color: $green;
+            }
+            .circle {
+              width: 6px;
+              height: 6px;
+              background-color: $green;
+              border-radius: 50%;
+              display: inline-block;
+              margin-right: 4px;
+            }
           }
         }
       }
     }
+  }
+}
+@media screen and (max-width: 1800px) {
+  .noticeBox {
+    display: none;
   }
 }
 .selectBox {
