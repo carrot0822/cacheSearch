@@ -137,6 +137,7 @@
             //荐购取消按钮
             cancelBtn(){
                 this.orderAccount=""
+                this.dialogVisible = false;
             },
             searchApi(){
                 orderFun(
@@ -236,5 +237,6 @@
         color: white;
         font-size: 15px;
         cursor: default;
+        cursor: pointer;
     }
 </style>

@@ -45,12 +45,26 @@
                         :show-overflow-tooltip="true"
                         label="创建时间">
                 </el-table-column>
+                
                 <el-table-column
                         prop="reason"
                         :show-overflow-tooltip="true"
                         label="荐购理由">
                     <template slot-scope="scope">
                         <span style="color: #2a2a2a">{{scope.row.reason == null || scope.row.reason=='' ?'---':scope.row.reason}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="toState"
+                        :show-overflow-tooltip="true"
+                        label="状态">
+                </el-table-column>
+                <el-table-column
+                        prop="examine"
+                        :show-overflow-tooltip="true"
+                        label="审核意见">
+                    <template slot-scope="scope">
+                        <span style="color: #2a2a2a">{{scope.row.examine == null || scope.row.examine=='' ?'---':scope.row.examine}}</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -78,12 +92,25 @@
                 ).then((res)=>{
                     console.log('查询荐购历史返回的数据',res)
                     if(res.data.state==true){
+                        
+                        for(let item of res.data.row){
+                            item.toState = this.toState(item.state);
+                            item.toExamine= this.toNull(item.examine)
+                        }
                         this.tableData=res.data.row;
                         this.Total=res.data.total
                     }else{
                         this.$message.error(res.data,msg)
                     }
                 })
+            },
+            toState(num){
+                let i = parseInt(num);
+                let arr = ['未审核','驳回','同意']
+                return arr[i];
+            },
+            toNull(value){
+                return value?value:'无'
             },
             //首页跳转按钮
             homePageBtn(){

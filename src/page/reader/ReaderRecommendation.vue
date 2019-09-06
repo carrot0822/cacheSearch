@@ -44,7 +44,7 @@
                 </el-form-item>
             </div>
 
-            <el-form-item label-width="625px">
+            <el-form-item style="textAlign:center">
                     <el-button type="primary" @click="submitForm('ruleForm')">确 &nbsp; 认</el-button>
                     <el-button type="info" @click="resetForm('ruleForm')">重 &nbsp; 置</el-button>
             </el-form-item>

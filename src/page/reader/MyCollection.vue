@@ -39,6 +39,7 @@
                 <el-table-column
                         prop="bookName"
                         label="书名">
+                        
                 </el-table-column>
                 <el-table-column
                         prop="author"
@@ -90,6 +91,7 @@
             }
         },
         methods:{
+            
             handleClose(){
                 this.dialogVisible=false
                 this.searchApi()

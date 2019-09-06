@@ -90,6 +90,9 @@
 </script>
 
 <style scoped>
+#NavigationPage{
+    padding: 0 20px;
+}
 .userIcon{
     font-size: 29px;
     color: #ffffff;
