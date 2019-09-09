@@ -138,6 +138,7 @@ import pagation from "@/components/pagation";
 import { searchInt } from "@/request/api/search";
 import { articleInt } from "@/request/api/article";
 export default {
+  inject:['reload'],
   data() {
     return {
       launch: false, // 是否分类
@@ -188,8 +189,10 @@ export default {
     /*------ API ------*/
     // 普通检索
     _searchto(val) {
-      this.$router.push({ path: "searchList", query: val });
+      this.$router.replace({ path: "searchList", query: val });
+      this.collectionList = []
       this._allSearch(val);
+      this.reload()
     },
     // 附加馆藏地搜索
     searchPlace(val) {

@@ -90,7 +90,8 @@ export default {
       allTable: [], // 所有数据
       inlib: [], // 在馆
       outlib: [], // 借出
-      shopObj:null
+      shopObj:null,
+      
     };
   },
   computed: {
@@ -170,7 +171,10 @@ export default {
   },
   mounted(){
     this.shopObj = new shop(this.data.name)
-  }
+    this.toggleValue = false
+    console.log('钩子函数只执行一次吗')
+  },
+  
 };
 </script>
 

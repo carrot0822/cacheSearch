@@ -10,8 +10,23 @@
 
 export default {
   name: 'app',
-  components: {
-    
+  data(){
+    return{
+      isRouterAlive:true
+    }
+  },
+  provide (){
+    return  {
+      reload:this.reload
+    }
+  },
+  methods:{
+    reload(){
+      this.isRouterAlive = false
+      this.$nextTick(()=>{
+        this.isRouterAlive = true
+      })
+    }
   }
 }
 </script>
