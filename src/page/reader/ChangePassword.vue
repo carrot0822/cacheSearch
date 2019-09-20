@@ -64,7 +64,12 @@
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
+
                     if (valid) {
+                        if(this.ruleForm.newPassWord == this.ruleForm.passWord){
+                            this.messageFix.error('新密码不得与原密码一致')
+                            return
+                        }
                         if(this.ruleForm.newPassWord==this.ruleForm.confirmPassWord){
                             changePassWordFun(this.ruleForm.passWord,this.ruleForm.newPassWord).then((res)=>{
                                 console.log('修改密码后返回的结果',res)

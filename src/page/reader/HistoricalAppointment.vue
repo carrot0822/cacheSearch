@@ -69,7 +69,7 @@
                         label="状态"
                         prop="state">
                     <template slot-scope="scope">
-                        <span>{{scope.row.state == 0?'成功':'失败'}}</span>
+                        <span>{{scope.row.state ?'失败':'成功'}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column

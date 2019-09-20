@@ -106,7 +106,7 @@
             },
             toState(num){
                 let i = parseInt(num);
-                let arr = ['未审核','驳回','同意']
+                let arr = ['未审核','同意','驳回']
                 return arr[i];
             },
             toNull(value){

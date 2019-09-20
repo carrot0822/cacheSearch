@@ -18,7 +18,8 @@ Vue.use(ElementUI) // 注册插件
 import 'element-ui/lib/theme-chalk/index.css'
 
 import './common/css/zyf.css'
-
+import messageFix from './message'
+Vue.prototype.messageFix = messageFix
 
 window.vm=new Vue({
   router,

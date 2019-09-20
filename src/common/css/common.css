@@ -4,3 +4,6 @@
 .fr{
     float: right;
 }
+.el-message{
+    top: 80px!important;
+}
