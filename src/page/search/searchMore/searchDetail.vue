@@ -183,7 +183,7 @@ export default {
           console.log("??????");
         }
       } else {
-        this.$message.error("请先登录");
+        this.messageFix.error("请先登录");
       }
     },
     // 预约
@@ -193,7 +193,7 @@ export default {
         obj.bookId = row.id;
         this._order(obj);
       } else {
-        this.$message.error("请先登录");
+        this.messageFix.error("请先登录");
       }
       console.log("预约", row);
     },
@@ -207,9 +207,9 @@ export default {
       orderInt(data).then(res => {
         console.log(res);
         if (res.data.state == true) {
-          this.$message.success("预约成功");
+          this.messageFix.success("预约成功");
         } else {
-          this.$message.error(res.data.msg);
+          this.messageFix.error(res.data.msg);
         }
       });
     },
@@ -284,7 +284,7 @@ export default {
         console.log("收藏", res);
         if (res.data.state) {
           this.isCollect = true;
-          this.$message.success("收藏成功");
+          this.messageFix.success("收藏成功");
         } else {
         }
       });
@@ -297,7 +297,7 @@ export default {
         console.log("取消收藏", res);
         if (res.data.state) {
           this.isCollect = false;
-          this.$message.success("取消收藏成功");
+          this.messageFix.success("取消收藏成功");
         } else {
         }
       });

@@ -221,7 +221,7 @@ export default {
         console.log("跳转", val);
         this.$router.push({ path: "searchList", query: val });
       } else {
-        this.$message.error("请至少输入一个搜索条件");
+        this.messageFix.error("请至少输入一个搜索条件");
       }
     },
     // 全选按钮

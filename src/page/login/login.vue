@@ -71,10 +71,10 @@ export default {
           sessionStorage.setItem("authorization", authorization);
           this.$store.commit("SET_TOKEN", data.authorization);
           this.$store.commit("SET_NAME", data.nowLoginUser.name);
-          this.$message.success("登录成功");
+          this.messageFix.success("登录成功");
           this.$router.push("/BasicInfo");
         } else {
-          this.$message.error(res.data.msg)
+          this.messageFix.error(res.data.msg)
           console.log(res.data.msg);
         }
       });

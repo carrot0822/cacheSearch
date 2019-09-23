@@ -92,7 +92,7 @@
                         this.tableData=res.data.row,
                         this.Total=res.data.total
                     }else{
-                        this.$message.error(res.data.msg)
+                        this.messageFix.error(res.data.msg)
                     }
                 })
             },

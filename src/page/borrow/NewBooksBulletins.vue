@@ -90,7 +90,7 @@
                     if(res.data.state==true){
                         this.tableData=res.data.row;
                     }else{
-                        this.$message.error(res.data.msg)
+                        this.messageFix.error(res.data.msg)
                     }
                 })
             }

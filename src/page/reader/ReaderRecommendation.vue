@@ -118,7 +118,7 @@
                                 this.popContent=res.data.msg;
                                 this.dialogVisible=true
                             }else{
-                                this.$message.error(res.data.msg)
+                                this.messageFix.error(res.data.msg)
                             }
                         })
                     } else {

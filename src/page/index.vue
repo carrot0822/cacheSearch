@@ -79,7 +79,7 @@ export default {
         this.$router.push("/search");
       }
 
-      this.$message.success("退出成功");
+      this.messageFix.success("退出成功");
     }
   },
   computed: {

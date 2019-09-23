@@ -126,11 +126,11 @@
                 addOrderFun(this.orderData).then((res)=>{
                     console.log('书籍荐购返回的数据',res)
                     if(res.data.state==true){
-                        this.$message.success(res.data.msg)
+                        this.messageFix.success(res.data.msg)
                         this.dialogVisible=false
                         this.searchApi()
                     }else{
-                        this.$message.error(res.data.msg)
+                        this.messageFix.error(res.data.msg)
                     }
                 })
             },
@@ -152,7 +152,7 @@
                         this.tableData=res.data.row;
                         this.Total=res.data.total
                     }else{
-                        this.$message.error(res.data.msg)
+                        this.messageFix.error(res.data.msg)
                     }
                 })
             },

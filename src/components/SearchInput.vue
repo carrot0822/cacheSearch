@@ -86,7 +86,7 @@ export default {
       if(value){
         this.$emit('emit-search',this.searchTimeForm)
       } else{
-        this.$message.error('请输入搜索条件')
+        this.messageFix.error('请输入搜索条件')
         
       }
     }
