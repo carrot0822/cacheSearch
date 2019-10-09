@@ -95,10 +95,11 @@
                     console.log('书籍续借后返回的数据',res)
                     if(res.data.state==true){
                         this.popCentent=res.data.msg;
-                        this.dialogVisible
+                        this.dialogVisible = true;
+                        this.searchApi()
                     }else{
                         this.popCentent=res.data.msg;
-                        this.dialogVisible
+                        this.dialogVisible = true;
                     }
 
                 })

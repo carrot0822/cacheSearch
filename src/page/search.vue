@@ -13,7 +13,8 @@
           
             <router-link tag="li" to="/esaySearch">书籍检索</router-link>
             <router-link tag="li" to="/LendingRank">借阅管理</router-link>
-          <router-link tag="li" to="/login">读者登录</router-link>
+						<router-link v-if="isLogin" tag="li" to="/BasicInfo">读者中心</router-link>
+          <router-link  v-if="!isLogin" tag="li" to="/login">读者登录</router-link>
         </ul>
       </nav>
     </section>
@@ -35,6 +36,7 @@ export default {
   data() {
     return {
       isMask:false,
+			isLogin:false,
     };
   },
   computed: {
@@ -58,6 +60,12 @@ export default {
   },
   mounted(){
    console.log(document.documentElement.clientHeight)
+	 let token = sessionStorage.getItem('authorization');
+	 if(token){
+		 this.isLogin = true
+	 } else {
+		 this.isLogin = false
+	 }
   }
 };
 </script>

@@ -1,9 +1,7 @@
 import axios from 'axios'
-import {
-  Message
-} from 'element-ui'
 
 
+import message from '../../message'
 
 //axios.defaults.timeout = 2000
 // axios.defaults.baseURL = process.env // 环境 本地发送方的url环境 这个环境怪怪的
@@ -31,7 +29,7 @@ axios.interceptors.response.use(
       sessionStorage.removeItem('authorization')
       window.vm.$store.dispatch('logout')
       //window.vm.$router.push('/login')
-      Message.error(response.data.msg);
+      message.error(response.data.msg);
       console.log('未登录')
       console.log('当前页面路径', window.vm.$route.path)
     }
@@ -39,7 +37,7 @@ axios.interceptors.response.use(
       sessionStorage.removeItem('authorization')
       window.vm.$store.dispatch('logout')
       window.vm.$router.push('/login')
-      Message.error(response.data.msg);
+      message.error(response.data.msg);
       console.log('拦截器')
       console.log('当前页面路径', window.vm.$route.path)
     }
@@ -48,7 +46,7 @@ axios.interceptors.response.use(
       window.vm.$store.dispatch('logout')
       window.vm.$router.push('/login') // 进入404页面Or权限不够页面
       console.log('token是否清楚')
-      Message.error(response.data.msg);
+      message.error(response.data.msg);
     }
 
     return response

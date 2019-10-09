@@ -1,12 +1,10 @@
 import router from './router'
 import store from '../src/store/store'
-import {
-    Message
-} from 'element-ui'
+
 import {
     getToken
 } from '@/common/js/util'
-
+import messageFix from './message'
 router.beforeEach((to, from, next) => {
     const hasToken = getToken()
 
@@ -40,7 +38,7 @@ router.beforeEach((to, from, next) => {
                         next({
                             path: '/login'
                         })
-                        Message.error('用户信息拉取失败，请检查相关网络')
+                        messageFix.error('用户信息拉取失败，请检查相关网络')
                         next()
                     } else {
                         next()
@@ -58,7 +56,7 @@ router.beforeEach((to, from, next) => {
             next({
                 path: '/login'
             })
-            Message.error('请先登录')
+            messageFix.error('请先登录')
         } else {
             next()
         }
