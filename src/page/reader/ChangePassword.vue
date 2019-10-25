@@ -25,7 +25,7 @@
                 </el-form-item>
             </el-form>
         </div>
-        <div class="placeHolderFont">* 温馨提示：密码必须为6-20位的数字和英文，已兼容短信服务﹑电话续借和自动借还终端密码输入</div>
+        <div class="placeHolderFont">* 温馨提示：密码不能包括空格，长度为6~20位字符</div>
         <el-dialog
                 :visible.sync="dialogVisible"
                 width="10%"

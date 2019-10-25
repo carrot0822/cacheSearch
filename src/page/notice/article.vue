@@ -1,42 +1,48 @@
 <template>
   <div class="articleBox">
-    <div class="conBox" v-if="dataList.length">
+    <div class="conBox" >
       <section class="backBox">
         <i @click="back" class="backtext el-icon-back"><span class="back">返回</span></i>
       </section>
-      <section class="title">
-        <h1 class="titleCon">{{dataList[0].title}}</h1>
-      </section>
-      <!-- 作者时间等 -->
-      <div class="undefLine"></div>
-      <section class="InfoBox">
-        <p class="InfoCon">
-          <span class="author">作者:{{dataList[0].username}}</span>
-          <span class="time">发布日期:{{dataList[0].createTime}}</span>
-        </p>
-      </section>
-      <!-- 富文本框内容 -->
-      <section class="contentBox">
-        <div class="content ql-editor" v-html="dataList[0].content"></div>
-      </section>
-      <!-- 附件 -->
+			<div v-if="dataList.length">
+				<section class="title">
+				  <h1 class="titleCon">{{dataList[0].title}}</h1>
+				</section>
+				<!-- 作者时间等 -->
+				<div class="undefLine"></div>
+				<section class="InfoBox">
+				  <p class="InfoCon">
+				    <span class="author">作者:{{dataList[0].username}}</span>
+				    <span class="time">发布日期:{{dataList[0].createTime}}</span>
+				  </p>
+				</section>
+				<!-- 富文本框内容 -->
+				<section class="contentBox">
+				  <div class="content ql-editor" v-html="dataList[0].content"></div>
+				</section>
+				<!-- 附件 -->
+				
+				<section class="fileBox">
+				  <h2>附件下载</h2>
+				  <div class="fileList">
+				    <p v-for="(item,index) of fileList" :key="index" download="附件下载">
+				      <a  :href="item.fileDown">{{item.fileName}}</a>
+				    </p>
+				  </div>
+				</section>
+				<div class="undefLine"></div>
+			</div>
       
-      <section class="fileBox">
-        <h2>附件下载</h2>
-        <div class="fileList">
-          <p v-for="(item,index) of fileList" :key="index" download="附件下载">
-            <a  :href="item.fileDown">{{item.fileName}}</a>
-          </p>
-        </div>
-      </section>
-      <div class="undefLine"></div>
     </div>
-    <div v-if="!dataList.length" class="loading">loading</div>
+    <div v-if="!dataList.length" class="loading">
+			查询失败
+		</div>
   </div>
 </template>
 
 <script>
 import { articleInt,showUrl } from "@/request/api/article";
+import loading from "@/layout/loading";
 export default {
   data() {
     return {
@@ -45,10 +51,14 @@ export default {
       dataList: []
     };
   },
+	components: {
+	  loading,
+	},
   methods: {
     back(){
       this.$router.go(-1)
     },
+		
     _search(obj){
       let data = obj
       articleInt.concrete(data).then((res)=>{
@@ -131,6 +141,10 @@ export default {
   width: 90%;
   margin: 0 auto;
   margin-bottom: 30px;
+}
+.loading{
+	position: relative;
+	left: 50%;
 }
 </style>
 

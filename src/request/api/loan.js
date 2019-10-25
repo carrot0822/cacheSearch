@@ -20,7 +20,7 @@ export function lendingRankFun(time){
 export function getNewbookFun(time){
     return axios.get(loanInfo.getNewbook,{
         params:{
-            borrowCountTimeb:time
+            borrowCountTime:time
         }
     })
 }

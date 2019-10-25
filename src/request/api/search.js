@@ -27,8 +27,10 @@ export function selectInt(data){
         return Promise.resolve(res)
     })
 }
-function collect (){
-    return axios.get(searchUrl.collet).then((res) => {
+function collect (data){
+    return axios.get(searchUrl.collet,{
+        params:data
+    }).then((res) => {
         return Promise.resolve(res)
     })
 }

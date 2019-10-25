@@ -11,24 +11,24 @@
             <el-form :model="selectForm" label-width="85px" class="demo-ruleForm">
               <el-form-item label="所属馆：">
                 <div class="size">
-                  <el-select v-model="selectForm.embassyValue" placeholder="请选择">
+                  <el-select @change="libNumChange" v-model="selectForm.libNum" placeholder="请选择">
                     <el-option
-                      v-for="item in embassy"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="(item,index) in libNumOptions"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.name"
                     ></el-option>
                   </el-select>
                 </div>
               </el-form-item>
               <el-form-item label="文献类型：">
                 <div class="size">
-                  <el-select v-model="selectForm.indexValue" placeholder="请选择">
+                  <el-select @change="indexChange" v-model="selectForm.documentTypeNum" placeholder="请选择">
                     <el-option
-                      v-for="item in indexOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="(item,index) in indexOptions"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.name"
                     ></el-option>
                   </el-select>
                 </div>
@@ -73,8 +73,8 @@
         <!-- <el-scrollbar style="height:100%">
           
         </el-scrollbar>-->
-        <div style="width:920px;" v-if="!collectionList.length" >
-          暂无数据 中图分类啊卡卡
+        <div style="width:920px; text-align: center;" v-if="!collectionList.length" >
+          <img width="400px" height="400px"  src="../../common/img/no-data.jpg" />
         </div>
         <div class="content-class" v-if="collectionList.length">
           <div class="pagation">
@@ -139,11 +139,11 @@ export default {
   data() {
     return {
       selectForm: {
-        embassyValue: "",
-        indexValue: ""
+        libNum: "全部",
+        documentTypeNum: "全部",
       },
       treeArr: [], // 树形菜单数组
-      embassy: [], // 文献下拉数据
+      libNumOptions: [], // 图书馆下拉数据
       indexOptions: [], // 索引下拉数据
       totalNumber: 0, // 总本书缓存变量
       launch: -1,
@@ -154,6 +154,11 @@ export default {
       searchRea: {
         pageSize:10,
         currentPage:1
+      },
+      // 类别 
+      typeObj:{
+        libData:"",
+        documentTypeData:""
       },
       // 分页数据
       total:0,
@@ -170,7 +175,8 @@ export default {
   methods: {
     pageChangeBtn(val){
       let obj = {};
-      obj.currentPage = 1;
+      obj.currentPage = parseInt(val);
+			
       this.searchRea = Object.assign(this.searchRea,obj)
       this._allSearch(this.searchRea);
       console.log(val)
@@ -187,14 +193,46 @@ export default {
       let obj = {};
       obj.typeCode = val.code;
       obj.currentPage = 1;
-      this.searchRea = Object.assign(this.searchRea,obj)
+      this.searchRea = Object.assign(this.searchRea,obj,this.typeObj)
       console.log("传递的值", obj);
       this._allSearch(this.searchRea);
     },
+    libNumChange(val){
+      console.log(val)
+      this.typeObj.documentTypeData = this.selectForm.documentTypeNum=="全部"?"":this.selectForm.documentTypeNum
+      this.typeObj.libData = val =="全部"?"":val;
+      this._collect(this.typeObj) 
+      console.log(this.typeObj)
+    },
+    indexChange(val){
+      this.typeObj.libData = this.selectForm.libNum == "全部"?"":this.selectForm.libNum
+      this.typeObj.documentTypeData = val == "全部"?"":val;
+      this._collect(this.typeObj) 
+      console.log(val)
+    },
     /*------ api ------*/
+    // 项目初始化
+		initData(){
+			searchInt.allSearchInt().then(res => {
+        /* let data = res.data.row;
+        this.collectionList = data.dataList;
+        this.total = res.data.total; */
+        let data = res.data.row
+        let addObj = {
+          name:'全部',
+          value:0
+        }
+        this.libNumOptions = data.libNum
+        this.libNumOptions.unshift(addObj)
+        this.indexOptions = data.documentTypeNum
+        this.indexOptions.unshift(addObj)
+        
+      });
+		},
     // 中图分类法
-    _collect() {
-      searchInt.collectInt().then(res => {
+    _collect(data={libNum:"",documentTypeNum:""}) {
+      let obj = data
+      searchInt.collectInt(obj).then(res => {
         console.log("中图分类法", res.data.row);
         this.treeArr = this._Fcollect(res.data.row);
         this.loading = false;
@@ -212,18 +250,26 @@ export default {
     },
     /*------ 过滤 ------*/
     _Fcollect(arr) {
+      this.totalNumber = 0
       let contrast = this.initArr();
 
       let twoC = contrast.length;
       let oneC = arr.length;
+      let allData = 0
       for (let i = 0; i < oneC; i++) {
-        this.totalNumber += arr[i].num;
+        
         for (let j = 0; j < twoC; j++) {
           let str = arr[i].code;
           let conStr = contrast[j].code;
           if (str.indexOf(conStr) != -1) {
-            contrast[j].number += arr[i].num;
-            contrast[j].children.push(arr[i]);
+            if(str === conStr){
+              contrast[j].number = arr[i].num
+              this.totalNumber += arr[i].num;
+            }else {
+              contrast[j].children.push(arr[i]);
+            }
+            //contrast[j].number += arr[i].num;
+            
           }
         }
       }
@@ -231,6 +277,9 @@ export default {
       console.log("过滤后", contrast);
       return contrast;
     },
+    /**
+     * 返回一个带对象的24个数据数组
+     */
     initArr() {
       let arr = [];
       let type = typeArr;
@@ -253,6 +302,7 @@ export default {
   },
   created() {
     this._collect();
+    this.initData()
   }
 };
 </script>

@@ -73,7 +73,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        label="读者名称"
+                        label="取书人"
                         :show-overflow-tooltip="true"
                         prop="fkReaderName">
                 </el-table-column>

@@ -3,7 +3,7 @@
         <div class="flexLayoutRow">
             <div class="title flexLayoutRow">
                 <img :src="titleIcon" class="titleImg">
-                <div class="titleFont">修改密码</div>
+                <div class="titleFont">图书续借</div>
             </div>
             <div></div>
         </div>

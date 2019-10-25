@@ -65,7 +65,7 @@
                         label="预计归还时间">
                 </el-table-column>
                 <el-table-column
-                        label="可借阅次数"
+                        label="已续借次数"
                         prop="renewCount">
                     <template slot-scope="scope">
                         <span>{{scope.row.renewCount}}次</span>
