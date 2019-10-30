@@ -10,7 +10,8 @@
 
         <div class="flexLayoutRow">
             <div class="headIcon">
-                <img  src="../../common/img/header.png">
+				<img  v-if="headerAddress"  :src="headerAddress">
+                <img  v-if="!headerAddress" src="../../common/img/header.png">
             </div>
             <div>
                 <p>读者卡号： <span>{{readerInfo.cardNumber}}</span></p>
@@ -25,9 +26,10 @@
                 <p>总欠款： <span>{{readerInfo.overdueExpenses}}</span></p>
             </div>
             <div>
-                <p>读者卡状态： <span>{{readerInfo.cardState==0?'正常':'挂失'}}</span></p>
+                <p>读者卡状态： <span>{{readerInfo.cardStateName}}</span></p>
                 <p>证件编号： <span>{{readerInfo.readerCard}}</span></p>
                 <p>卡等级名称： <span>{{readerInfo.fkGradeName}}</span></p>
+				
             </div>
         </div>
     </div>
@@ -50,8 +52,10 @@
                     overdueExpenses:"",
                     cardState:"",
                     readerCard:"",
-                    fkGradeName:""
-                }
+                    fkGradeName:"",
+					
+                },
+				headerAddress:''
             }
         },
         created(){
@@ -64,6 +68,7 @@
                     console.log('初始化的读者基本信息',res)
                     if(res.data.state==true){
                         this.readerInfo=res.data.row
+						this.headerAddress = res.data.row.headerAddress
                     }else{
                         this.message.error('错了哦，这是一条错误消息');
                     }

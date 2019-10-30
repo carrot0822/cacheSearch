@@ -180,6 +180,14 @@ export default new Router({
                             },
                             component: () => import('page/reader/FinancialManagement.vue')
                         },
+                        {
+                            path: '/overdue',
+                            title: '逾期记录',
+                            meta:{
+                                permission:true
+                            },
+                            component: () => import('page/reader/overdue.vue')
+                        },
                     ]
                 },
                 {

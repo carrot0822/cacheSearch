@@ -2,13 +2,15 @@
     <div id="documentProcessing" class="zyfPage ReaderCenter">
         <div class="flexLayoutRow">
             <div class="title flexLayoutRow">
-                <img :src="titleIcon" class="titleImg">
+				
+                <img  :src="titleIcon" class="titleImg">
                 <div class="titleFont">读者卡挂失/恢复</div>
             </div>
             <div></div>
         </div>
         <div class="flexLayoutRow">
-            <div class="headIcon"></div>
+			<img v-if="headerAddress" :src="headerAddress" class="headIcon">
+            
             <div>
                 <p>读者卡号： <span>{{readerInfo.cardNumber}}</span></p>
                 <p>开户馆： <span>{{readerInfo.libraryName}}</span> </p>
@@ -47,6 +49,7 @@
                     cardExpireTime:"",
                     cardState:''
                 },
+				headerAddress:'',
                 successPointOut:'',
                 dialogVisible: false
             }
@@ -64,6 +67,7 @@
                         }else{
                             btnName='取 &nbsp; &nbsp; 挂'
                         }
+						this.headerAddress = res.data.row.headerAddress
                         document.getElementById('primaryBtn').innerHTML=btnName
                     }
                 })

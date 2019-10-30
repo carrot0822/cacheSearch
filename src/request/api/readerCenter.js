@@ -17,11 +17,19 @@ const readerInfo = {
     nowSubscribe:`${url}serviceforreadermodule/bookTbSubscribeLog/select`,//我的预约》当前预约
     cencalSubscribe:`${url}serviceforreadermodule/bookTbSubscribeLog/recall`,//我的预约》当前预约》取消预约
     hisSubscribe:`${url}serviceforreadermodule/bookTbSubscribeHistoryLog/select`,//我的预约》历史预约查询
-    recommendation:`${url}/serviceforreadermodule/reader/recommendation/addRecommendation`,//我的荐购》读者自荐
+    recommendation:`${url}serviceforreadermodule/reader/recommendation/addRecommendation`,//我的荐购》读者自荐
     order:`${url}serviceforreadermodule/reader/recommendation/getAllHis`,//我的荐购》征订荐购
     addOrder:`${url}serviceforreadermodule/reader/recommendation//reRecommendation`,//我的荐购》征订荐购》荐购
     hisRecommend:`${url}serviceforreadermodule/reader/recommendation/readerSelect`,//我的荐购》历史荐购
-    rankRecommend:`${url}/serviceforreadermodule/reader/recommendation/rankingList`,//我的荐购》荐购排行
+    rankRecommend:`${url}serviceforreadermodule/reader/recommendation/rankingList`,//我的荐购》荐购排行
+    overDue:`${url}serviceforreadermodule/readerInfo/overdueselect` // 财经管理 逾期记录
+}
+/******财经管理》逾期记录 *****/
+export function  overDue(pS,cP){
+    return axios.get(readerInfo.overDue,{params:{
+        pageSize:pS,
+        currentPage:cP
+    }})
 }
 /******用户信息》基本信息 *****/
 export function readerInfoFun (){

@@ -60,6 +60,7 @@
                     </template>
                     <el-menu-item-group>
                         <el-menu-item index="/FinancialManagement" >财经查询</el-menu-item>
+                        <el-menu-item index="/overdue" >逾期记录</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
             </el-menu>
