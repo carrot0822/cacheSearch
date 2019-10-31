@@ -163,7 +163,7 @@
         margin-left: 5px;
         font-size: 15px;
         text-align: center;
-        cursor: default;
+        cursor: pointer;
     }
     .serchBtn:hover{
         background-color: #12b494a6;
