@@ -74,8 +74,13 @@
                             changePassWordFun(this.ruleForm.passWord,this.ruleForm.newPassWord).then((res)=>{
                                 console.log('修改密码后返回的结果',res)
                                 if(res.data.state==true){
-                                    this.popContent=res.data.msg;
+                                    this.popContent='修改密码成功 2s后将跳至登录页';
                                     this.dialogVisible=true
+									window.sessionStorage.setItem('authorization','')
+									window.sessionStorage.setItem('userInfo',{})
+									let time = setTimeout(()=>{
+										this.$router.push({path:'/login'})
+									},2000)
                                 }else{
                                     this.popContent=res.data.msg;
                                     this.dialogVisible=true

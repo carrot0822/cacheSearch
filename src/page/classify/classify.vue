@@ -243,6 +243,7 @@ export default {
       let obj = data;
       searchInt.allSearchInt(data).then(res => {
         let data = res.data.row;
+		this.collectionList = []
         this.collectionList = data.dataList;
         this.total = res.data.total;
         console.log(res);
@@ -253,23 +254,23 @@ export default {
       this.totalNumber = 0
       let contrast = this.initArr();
 
-      let twoC = contrast.length;
-      let oneC = arr.length;
+      let twoC = contrast.length; // 外层数组
+      let oneC = arr.length; // 子节点
       let allData = 0
       for (let i = 0; i < oneC; i++) {
         
         for (let j = 0; j < twoC; j++) {
           let str = arr[i].code;
-          let conStr = contrast[j].code;
+					let conpareCode = arr[i].parentCode // 子节点的父code
+          let conStr = contrast[j].code; // code相等的才加速
+
           if (str.indexOf(conStr) != -1) {
             if(str === conStr){
               contrast[j].number = arr[i].num
-              this.totalNumber += arr[i].num;
-            }else {
+              this.totalNumber += arr[i].num; // 总数目
+            }else if(conStr == conpareCode) {
               contrast[j].children.push(arr[i]);
             }
-            //contrast[j].number += arr[i].num;
-            
           }
         }
       }
@@ -286,8 +287,10 @@ export default {
       let letter = getBigLetter(); // 26个初始字母
       letter.splice(11, 1);
       letter.splice(12, 1);
+			letter.splice(-4, 1);
       letter.splice(-2, 1);
-      letter.splice(-4, 1);
+      
+			console.log(letter,'字母')
       for (let i = 0; i < letter.length; i++) {
         let obj = {};
         obj.code = letter[i];

@@ -174,7 +174,7 @@ export default {
       publicTimeArr: [], // 出版时间
       typeArr: [], // 出版时间
       initArr: [],
-      condition: null, // 搜索条件缓存
+      condition: {}, // 搜索条件缓存
       //分页器
       total: 0,
       pageSize: 10,
@@ -191,51 +191,53 @@ export default {
     _searchto(val) {
       this.$router.replace({ path: "searchList", query: val });
       this.collectionList = []
+			this.condition = {}
       this._allSearch(val);
       this.reload()
+			console.log('搜索的val',val)
     },
     // 附加馆藏地搜索
     searchPlace(val) {
       let obj = {};
       obj.libData = val;
       obj.currentPage = 1;
-      this.condition = Object.assign(this.condition, obj);
+      this.condition = Object.assign(this.condition, obj,this.$route.query);
       this._allSearch(this.condition);
-      console.log("合并之后的数据", this.condition, this.$route.query);
+      console.log("合并之后的数据", this.condition,);
     },
     // 索引类型搜索
     searchIndex(val) {
       let obj = {};
       obj.documentTypeData = val;
       obj.currentPage = 1;
-      this.condition = Object.assign(this.condition, obj);
+      this.condition = Object.assign(this.condition, obj, this.$route.query);
       this._allSearch(this.condition);
-      console.log("合并之后的数据", this.condition, this.$route.query);
+      console.log("合并之后的数据", this.condition);
     },
     // 著作者搜索
-    searchauthor() {
+    searchauthor(val) {
       let obj = {};
       obj.authorData = val;
       obj.currentPage = 1;
-      this.condition = Object.assign(this.condition, obj);
+      this.condition = Object.assign(this.condition, obj, this.$route.query);
       this._allSearch(this.condition);
-      console.log("合并之后的数据", this.condition, this.$route.query);
+      console.log("合并之后的数据", this.condition);
     },
     // 发布日期搜索
-    searchpublicTime() {
+    searchpublicTime(value) {
       let obj = {};
       obj.publicationTimeData = val;
       obj.currentPage = 1;
-      this.condition = Object.assign(this.condition, obj);
+      this.condition = Object.assign(this.condition, obj, this.$route.query);
       this._allSearch(this.condition);
-      console.log("合并之后的数据", this.condition, this.$route.query);
+      console.log("合并之后的数据", this.condition);
     },
     // 类型搜索
-    searchtype() {
+    searchtype(val) {
       let obj = {};
       obj.typeData = val;
       obj.currentPage = 1;
-      this.condition = Object.assign(this.condition, obj);
+      this.condition = Object.assign(this.condition, obj,this.$route.query);
       this._allSearch(this.condition);
       console.log("合并之后的数据", this.condition, this.$route.query);
     },

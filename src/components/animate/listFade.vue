@@ -47,11 +47,11 @@ export default {
     beforeEnter: function(el) {
       el.style.opacity = 0;
       
-      console.log(el)
+     
     },
     enter: function(el, done) {
       var delay = el.dataset.index * 150;
-      console.log(delay)
+      
       setTimeout(function() {
         Velocity(el, { opacity: 1 }, { complete: done });
       }, delay);

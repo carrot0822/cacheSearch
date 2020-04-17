@@ -27,7 +27,7 @@
       <search-input @blur-son="blurMask" @focu-son="focuMask"  @emit-search="_searchto"></search-input>
     </section>
     
-    <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
+    <div class="copyright">版权所有 copyright © www.cqkuiniu.com 智慧图书馆</div>
   </div>
 </template>
 <script>

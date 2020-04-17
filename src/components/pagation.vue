@@ -19,9 +19,10 @@
         </button>
       </div>
       <div class="jump">
-        <input v-model.number="pageInput" class="inputBox" type="text" />
+       
         <span style="margin-right:10px;">当前第{{currentPage}}页</span>
          <span>共{{pageMax}}页</span>
+		  <input v-model.number="pageInput" class="inputBox" type="text" />
         <button ><span @click="jumpBtn">跳转</span></button>
       </div>
     </div>

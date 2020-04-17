@@ -114,12 +114,16 @@ export default {
   methods: {
     toggleShow(id) {
       this.toggleValue = !this.toggleValue;
-
+		let obj = {};
+		obj.fkCataBookId = id;
+		this._select(obj);
+		/*
       if (!this.isRequest) {
         let obj = {};
         obj.fkCataBookId = id;
         this._select(obj);
       }
+	  */
     },
     toDetail(id) {
       let bookId = id;
@@ -172,7 +176,7 @@ export default {
   mounted(){
     this.shopObj = new shop(this.data.name)
     this.toggleValue = false
-    console.log('钩子函数只执行一次吗')
+
   },
   
 };

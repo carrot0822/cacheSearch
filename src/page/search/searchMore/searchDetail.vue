@@ -47,8 +47,9 @@
         <div class="context">
           <p class="stage">
             <span class="distance">相关资源</span>
+						<span>无</span>
           </p>
-          <p>内容简介</p>
+          <p style="margin-bottom: 10px;">内容简介</p>
           <p class="content">{{bookData.introduction}}</p>
         </div>
         <!-- 侧边组件警告 -->
@@ -333,7 +334,7 @@ export default {
         font-weight: bold;
       }
       .back {
-        font-size: 13px;
+        font-size: 16px;
         color: #040404;
         cursor: pointer;
       }
@@ -378,7 +379,9 @@ export default {
           }
         }
         .content {
+					text-indent: 24px;
           width: 315px;
+					line-height: 24px;
         }
       }
       .operateBox {

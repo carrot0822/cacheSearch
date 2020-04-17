@@ -33,7 +33,7 @@
     </div>
     <div class="pointOut">
       <p class="pointTitle">登陆提示</p>
-      <p class="pointFont">• 图书图书馆提供读者个性化的服务空间，默认已经开通读者空间服务，请输入读者证号和密码进入系统。</p>
+      <p class="pointFont">• 夔牛图书馆提供读者个性化的服务空间，默认已经开通读者空间服务，请输入读者证号和密码进入系统。</p>
       <p class="pointFont">• 初始密码为身份证后6位。</p>
       <p class="pointFont">• 读者可登录个人空间修改登录密码。如忘记密码请联系管理员</p>
     </div>
