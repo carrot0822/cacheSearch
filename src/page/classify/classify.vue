@@ -6,7 +6,18 @@
           <i class="icon iconfont icon-fenleidaohang"></i>
           <span class="text">分类导航</span>
         </div>
+
         <div class="selectBox">
+          <div class="select">
+            <p>所属馆：夔牛图书馆</p>
+            <p>文献类型：图书</p>
+			<P class="data">
+			  数据总数：
+			  <span class="red">{{totalNumber}}种</span>
+			</P>
+          </div>
+        </div>
+        <!-- <div class="selectBox">
           <div class="select">
             <el-form :model="selectForm" label-width="85px" class="demo-ruleForm">
               <el-form-item label="所属馆：">
@@ -39,25 +50,25 @@
             数据总数：
             <span class="red">{{totalNumber}}种</span>
           </P>
-        </div>
+        </div> -->
+        <!-- 树形菜单 -->
         <div class="searchEnd">
           <el-scrollbar style="height:100%">
             <div class="loadingBox">
               <loading :loading="loading"></loading>
             </div>
-
             <div class="treeBox" v-if="treeArr.length">
               <div class="tree-block" v-for="(item,index) of treeArr" :key="index">
                 <div class="fatherBox">
                   <i class="icon iconfont icon-kinds" @click="openBtn(index)"></i>
                   <div @click="searchBtn(item)" class="flex">
-                    <span class="name">{{item.letter}}-{{item.title}}</span>
-                    <span class="red">({{item.number}})</span>
+                    <span class="name">{{item.code}}-{{item.name}}</span>
+                    <span class="red">({{item.num}})</span>
                   </div>
                 </div>
                 <el-collapse-transition>
                   <div class="hideSon" v-show="launch == index">
-                    <p v-for="(son,num) of item.children" :key="num">
+                    <p v-for="(son,num) of item.list" :key="num">
                       <span @click="searchBtn(son)">{{son.code}}-{{son.name}}</span>
                       <span class="red">({{son.num}})</span>
                     </p>
@@ -74,7 +85,8 @@
           
         </el-scrollbar>-->
         <div style="width:920px; text-align: center;" v-if="!collectionList.length" >
-          <img width="400px" height="400px"  src="../../common/img/no-data.jpg" />
+          <img width="400px" height="400px"  :src="imgData" />
+          <!-- <img width="400px" height="400px"  src="../../common/img/no-data.jpg" /> -->
         </div>
         <div class="content-class" v-if="collectionList.length">
           <div class="pagation">
@@ -104,32 +116,8 @@
 </template>
 
 <script>
-const typeArr = [
-  "马列主义毛邓思想",
-  "哲学、宗教",
-  "社会科学总论",
-  "政治、法律",
-  "军事",
-  "经济",
-  "文化、科学、教育、体育",
-  "语言、文字",
-  "文学",
-  "艺术",
-  "历史、地理",
-  "自然科学总论",
-  "数理科学和化学",
-  "天文学、地球科学",
-  "生物科学",
-  "医药、卫生",
-  "农业科学",
-  "工业技术",
-  "交通运输",
-  "航空、航天",
-  "环境科学、安全科学",
-  "综合性图书"
-];
+
 import { searchInt } from "@/request/api/search";
-import { getBigLetter } from "@/common/js/util";
 import BookBlock from "@/components/bookBlock";
 import loading from "@/layout/loading";
 import animation from "@/components/animate/listFade";
@@ -138,6 +126,7 @@ const classArr = [""];
 export default {
   data() {
     return {
+      imgData:require('../../common/img/no-data.jpg'),
       selectForm: {
         libNum: "全部",
         documentTypeNum: "全部",
@@ -201,22 +190,24 @@ export default {
       console.log(val)
       this.typeObj.documentTypeData = this.selectForm.documentTypeNum=="全部"?"":this.selectForm.documentTypeNum
       this.typeObj.libData = val =="全部"?"":val;
-      this._collect(this.typeObj) 
+      this._testCollect(this.typeObj) 
       console.log(this.typeObj)
     },
     indexChange(val){
       this.typeObj.libData = this.selectForm.libNum == "全部"?"":this.selectForm.libNum
       this.typeObj.documentTypeData = val == "全部"?"":val;
-      this._collect(this.typeObj) 
+      this._testCollect(this.typeObj) 
       console.log(val)
     },
     /*------ api ------*/
-    // 项目初始化
+    // 项目初始化 下拉框数据
 		initData(){
-			searchInt.allSearchInt().then(res => {
+      let data={bop:0}
+			searchInt.allSearchInt(data).then(res => {
         /* let data = res.data.row;
         this.collectionList = data.dataList;
         this.total = res.data.total; */
+        console.log('初始化',res)
         let data = res.data.row
         let addObj = {
           name:'全部',
@@ -229,83 +220,63 @@ export default {
         
       });
 		},
-    // 中图分类法
-    _collect(data={libNum:"",documentTypeNum:""}) {
+    // 测试数据 中图分类法 树形数据
+    _testCollect(data={bop:0}){
       let obj = data
-      searchInt.collectInt(obj).then(res => {
-        console.log("中图分类法", res.data.row);
-        this.treeArr = this._Fcollect(res.data.row);
-        this.loading = false;
-      });
+      searchInt.testCollect(obj).then((res)=>{
+        if(res.data.state){
+          let result = res.data.rows.sort(this._sortTool('code'))
+          console.log('过滤的结果',result)
+          this.treeArr = result
+          this.totalNumber = res.data.row
+          this.loading = false;
+          console.log()
+          console.log(this.treeArr,this.totalNumber,'没执行吗？')
+        }else{
+          this.loading = false;
+          this.messageFix.error(res.data.msg)
+        }
+        console.log(res.data.state,'？？？')
+        console.log(res,'新版中图')
+      })
     },
     // 检索
-    _allSearch(data) {
+    _allSearch(data={bop:0}) {
       let obj = data;
-      searchInt.allSearchInt(data).then(res => {
+      searchInt.allSearchInt(obj).then(res => {
         let data = res.data.row;
-		this.collectionList = []
+		    this.collectionList = []
         this.collectionList = data.dataList;
         this.total = res.data.total;
         console.log(res);
       });
     },
     /*------ 过滤 ------*/
-    _Fcollect(arr) {
-      this.totalNumber = 0
-      let contrast = this.initArr();
-
-      let twoC = contrast.length; // 外层数组
-      let oneC = arr.length; // 子节点
-      let allData = 0
-      for (let i = 0; i < oneC; i++) {
-        
-        for (let j = 0; j < twoC; j++) {
-          let str = arr[i].code;
-					let conpareCode = arr[i].parentCode // 子节点的父code
-          let conStr = contrast[j].code; // code相等的才加速
-
-          if (str.indexOf(conStr) != -1) {
-            if(str === conStr){
-              contrast[j].number = arr[i].num
-              this.totalNumber += arr[i].num; // 总数目
-            }else if(conStr == conpareCode) {
-              contrast[j].children.push(arr[i]);
-            }
-          }
+    // 过滤工具函数
+    _sortTool(property){
+      return function(a,b){
+        var value1 = a[property]
+        var value2 = b[property]
+        if(value1<value2){
+          return -1
+        } else if(value1 >value2){
+          return 1
+        } else{
+          return 0
         }
       }
-      console.log(this.totalNumber);
-      console.log("过滤后", contrast);
-      return contrast;
-    },
+    }
     /**
      * 返回一个带对象的24个数据数组
      */
-    initArr() {
-      let arr = [];
-      let type = typeArr;
-      let letter = getBigLetter(); // 26个初始字母
-      letter.splice(11, 1);
-      letter.splice(12, 1);
-			letter.splice(-4, 1);
-      letter.splice(-2, 1);
-      
-			console.log(letter,'字母')
-      for (let i = 0; i < letter.length; i++) {
-        let obj = {};
-        obj.code = letter[i];
-        obj.title = type[i];
-        obj.number = 0;
-        obj.children = [];
-        arr.push(obj);
-      }
 
-      return arr;
-    }
   },
   created() {
-    this._collect();
+    let testArr= [{code:'F'},{code:'B'},{code:'D'}]
+    let result = testArr.sort(this._sortTool('code'))
+    console.log(result,'结果呢')
     this.initData()
+    this._testCollect()
   }
 };
 </script>
@@ -438,6 +409,11 @@ export default {
   .el-scrollbar__wrap {
     overflow-x: hidden;
   }
+}
+// 会被删除的样式
+#classify .select p{
+  padding-left: 20px;
+  padding-bottom: 20px;
 }
 </style>
 

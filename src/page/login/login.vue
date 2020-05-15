@@ -5,13 +5,13 @@
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
           <el-form-item label="用户名：" prop="name" >
-            <el-input v-model="form.name" placeholder="请输入电话/身份证/卡号/邮箱"  clearable></el-input>
+            <el-input v-model="form.name" placeholder="请输入身份证/卡号"  clearable></el-input>
           </el-form-item>
         </div>
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
           <el-form-item label="密　码：" prop="password">
-            <el-input placeholder="请输入密码" @keyup.enter.native="landingBtn" type="password" v-model="form.password" clearable></el-input>
+            <el-input placeholder="初始密码为身份证后6位" @keyup.enter.native="landingBtn" type="password" v-model="form.password" clearable></el-input>
           </el-form-item>
         </div>
         <!--<div class="flexLayoutRow">
@@ -34,7 +34,7 @@
     <div class="pointOut">
       <p class="pointTitle">登陆提示</p>
       <p class="pointFont">• 夔牛图书馆提供读者个性化的服务空间，默认已经开通读者空间服务，请输入读者证号和密码进入系统。</p>
-      <p class="pointFont">• 初始密码为身份证后6位。</p>
+      <!-- <p class="pointFont">• 初始密码为身份证后6位。</p> -->
       <p class="pointFont">• 读者可登录个人空间修改登录密码。如忘记密码请联系管理员</p>
     </div>
   </div>

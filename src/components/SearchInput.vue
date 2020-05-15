@@ -14,6 +14,10 @@
 </template>
 <script>
 export default {
+  props:{
+    searchVal:"",
+    selectVal:"",
+  },
   data() {
     return {
       search: null,
@@ -61,6 +65,13 @@ export default {
         value:'publishingTime'
       },]
     };
+  },
+  mounted(){
+    if(this.searchVal&&this.selectVal){
+      this.search = this.searchVal
+      this.select = this.selectVal
+    }
+    console.log(this.searchVal,this.selectVal,'检测传递的值')
   },
   computed: {
     searchTimeForm(){

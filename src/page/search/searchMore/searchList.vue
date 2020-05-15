@@ -1,7 +1,7 @@
 <template>
   <div id="searchList">
     <section class="searchBox">
-      <search-input @emit-search="_searchto"></search-input>
+      <search-input :searchVal="searchVal" :selectVal="selectVal" @emit-search="_searchto"></search-input>
     </section>
     <section class="changeBox">
       <div class="leftBox">
@@ -141,6 +141,8 @@ export default {
   inject:['reload'],
   data() {
     return {
+      searchVal:"",
+      selectVal:"",// 控制input值 缓存一次
       launch: false, // 是否分类
       sortValue: "", // 数据排序
       tableData: [], // 渲染数据
@@ -287,6 +289,14 @@ export default {
   created() {
     // 传值数据格式转化
     let container = this.$route.query;
+    let arr = Object.keys(container)
+    if(arr.length ===3){
+      let key = arr[0]
+      this.selectVal = key
+      this.searchVal = container[key]
+    }
+    console.log(container,'传递的数据现在多了两个',Object.keys(container))
+    
     this.pageSize = Number(container.pageSize);
     this.currentPage = Number(container.currentPage);
     this.condition = container;

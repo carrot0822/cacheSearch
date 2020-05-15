@@ -35,10 +35,10 @@
             <span class="distance">ISBN：</span>
             {{bookData.isbn}}
           </p>
-          <p class="stage">
+          <!-- <p class="stage">
             <span class="distance">索书号：</span>
             {{bookData.codeNumber}}
-          </p>
+          </p> -->
           <p class="stage">
             <span class="distance">价格：</span>
             {{bookData.price}}

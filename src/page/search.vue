@@ -73,9 +73,11 @@ export default {
 @import '@/common/scss/variables.scss';
 #search {
   background-image: url("../common/img/bg.jpg");
-  
+  position:relative;
   background-size: cover;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   background-position: center;
   .header {
     .nav {
