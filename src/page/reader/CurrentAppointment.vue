@@ -54,18 +54,17 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                        prop="subscribeState"
+                        prop="appoint"
                         :show-overflow-tooltip="true"
                         label="预约状态">
-                    <template slot-scope="scope">
-                        <span style="color: #2a2a2a">{{scope.row.subscribeState == 0?'等待中':'生效中'}}</span>
-                    </template>
+                    
                 </el-table-column>
                 <el-table-column
                         prop="subscribeState"
                         label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="renewalBtn(scope.row)" type="text" size="small">取消预约</el-button>
+						<span v-if="scope.row.subscribeState == 2">---</span>
+                        <el-button v-if="scope.row.subscribeState != 2" @click="renewalBtn(scope.row)" type="text" size="small">取消预约</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -120,13 +119,23 @@
                 ).then((res)=>{
                     console.log('当前预约表格查询返回的数据',res)
                     if(res.data.state==true){
-                        this.tableData=res.data.row
+                        this.tableData= this._filter(res.data.row)
                         this.Total=res.data.total
                     }else{
                         this.messageFix.error(res.data.msg)
                     }
                 })
             },
+			_filter(arr=[]){
+				let len = arr.length
+				let state = ['等待中','生效中','失效']
+				for(let item of arr){
+					let i = item.subscribeState
+					item.appoint = state[i]
+				}
+				return arr
+				
+			},
             //首页跳转按钮
             homePageBtn(){
                 this.currentPage=1
